@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>机器学习问题记录（v1.0） | Jak-Ma</title><meta name="author" content="Jak-Ma"><meta name="copyright" content="Jak-Ma"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="为什么权重小一点就能防止过拟合呢？   核心思想：较小的权重对应的模型更加简单，而简单模型通常具有更强的泛化能力。 因为模型的预测输出可以表示为输入特征与权重的加权和，当权重较小时，输入特征的的微小变化（如噪声）对输出的影响被削弱，模型函数的曲线更加平滑，避免因学习过程训练数据中的噪声细节而导致过拟合。 过拟合可能发生的场景除了噪声数据过多，还有如下几个场景等    过拟合场景 权重衰减的作用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习问题记录（v1.0）">
+<meta property="og:url" content="http://example.com/2025/07/25/ML-v1-0/index.html">
+<meta property="og:site_name" content="Jak-Ma">
+<meta property="og:description" content="为什么权重小一点就能防止过拟合呢？   核心思想：较小的权重对应的模型更加简单，而简单模型通常具有更强的泛化能力。 因为模型的预测输出可以表示为输入特征与权重的加权和，当权重较小时，输入特征的的微小变化（如噪声）对输出的影响被削弱，模型函数的曲线更加平滑，避免因学习过程训练数据中的噪声细节而导致过拟合。 过拟合可能发生的场景除了噪声数据过多，还有如下几个场景等    过拟合场景 权重衰减的作用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/avatar.jpg">
+<meta property="article:published_time" content="2025-07-25T13:39:02.000Z">
+<meta property="article:modified_time" content="2025-07-25T13:50:38.219Z">
+<meta property="article:author" content="Jak-Ma">
+<meta property="article:tag" content="Hello World">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "机器学习问题记录（v1.0）",
+  "url": "http://example.com/2025/07/25/ML-v1-0/",
+  "image": "http://example.com/images/avatar.jpg",
+  "datePublished": "2025-07-25T13:39:02.000Z",
+  "dateModified": "2025-07-25T13:50:38.219Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Jak-Ma",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/07/25/ML-v1-0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '机器学习问题记录（v1.0）',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我们</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/images/avatar.jpg" alt="Logo"><span class="site-name">Jak-Ma</span></a><a class="nav-page-title" href="/"><span class="site-name">机器学习问题记录（v1.0）</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我们</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">机器学习问题记录（v1.0）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-25T13:39:02.000Z" title="发表于 2025-07-25 21:39:02">2025-07-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-25T13:50:38.219Z" title="更新于 2025-07-25 21:50:38">2025-07-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><blockquote>
+<ol>
+<li>为什么权重小一点就能防止过拟合呢？</li>
+</ol>
+</blockquote>
+<p>核心思想：较小的权重对应的模型更加简单，而简单模型通常具有更强的泛化能力。</p>
+<p>因为模型的预测输出可以表示为输入特征与权重的加权和，当权重较小时，输入特征的的微小变化（如噪声）对输出的影响被削弱，模型函数的曲线更加平滑，避免因学习过程训练数据中的噪声细节而导致过拟合。</p>
+<p>过拟合可能发生的场景除了噪声数据过多，还有如下几个场景等</p>
+<table>
+<thead>
+<tr>
+<th>过拟合场景</th>
+<th>权重衰减的作用机制</th>
+<th>与噪声的关系</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>模型参数过多（如100万参数拟合1万样本）</td>
+<td>限制权重规模，使模型无法学习样本的个性化细节</td>
+<td>与噪声无关</td>
+</tr>
+<tr>
+<td>特征维度极高（如1000维特征但样本稀疏）</td>
+<td>降低权重整体数值，避免对无关特征赋予过高权重</td>
+<td>与噪声无关</td>
+</tr>
+<tr>
+<td>数据分布不均（如少数样本主导训练）</td>
+<td>使模型偏向学习”平均规律”而非极端样本特征</td>
+<td>可能涉及噪声，也可能不涉及</td>
+</tr>
+</tbody></table>
+<blockquote>
+<ol start="2">
+<li>分类和回归的区别与联系？</li>
+</ol>
+</blockquote>
+<p><strong>目的</strong>：</p>
+<ul>
+<li><p>分类任务是预测离散的类别标签，而回归是连续的数值输出</p>
+</li>
+<li><p>离散就是规定好有限个类别，这些类别是离散的。连续是理论上可以取某一个范围内任意值（在合理可控范围内即可）</p>
+</li>
+<li><p>分类的目的是为了寻找决策边界，回归的目的是为了找到最优拟合</p>
+</li>
+</ul>
+<p><strong>联系</strong>：分类和回归都是对于输入做出预测，并且都是监督学习</p>
+<p><strong>本质区别在于输出空间是否为一个度量空间</strong></p>
+<blockquote>
+<ol start="3">
+<li>学习率过大过小的影响？</li>
+</ol>
+</blockquote>
+<p>首先，学习率是深度学习中的超参数之一</p>
+<p>学习率过大，参数更新的步伐就会变大，导致模型在更新时可能出现在最优解附近不断振荡，无法有效收敛。</p>
+<p>学习率过小，模型参数更新幅度就会变小，导致收敛速度会变慢，同时还有可能出现无法跳出局部最优解的情况。</p>
+<blockquote>
+<ol start="4">
+<li>batch_size 大小的设置的影响？</li>
+</ol>
+</blockquote>
+<img src="https://gitee.com/jak-ma/graph-s/raw/master/imgs/20250725215009961.png" alt="屏幕截图 2025-07-23 164321" style="zoom:50%;" />
+
+<p>（图片来自引用，仅供学习使用，无其他任何商业用途）</p>
+<p>正如上图公式体现，batch_size的选择，决定的是梯度下降的方向</p>
+<p>当数据集较小时，可以设置 <strong>batch_size&#x3D;全部数据集</strong> ,这样做的话：</p>
+<p>由全数据集确定的方向能够更好的代表样本总体，从而更好的朝着极值所在的方向。</p>
+<p>当数据集变得越来越大时，因为硬件资源的限制，一次性载入所有数据集变得不可行。</p>
+<p>通常来讲，过大的 batch_size 下，同样的epoch数目，batch数目减少了，所以可以减少训练时间（此时假设硬件是可支持的）。但参数更新的次数会减少。</p>
+<p>这样的情况下，模型训练更加平滑和稳定，但是对参数的修正变得缓慢，模型容易找到局部最优解而无法跳出。同时，过大的batch_size也会降低模型的泛化性，导致可能会出现过拟合的情况。</p>
+<p>而过小的 batch_size，训练时间会加长，每次更新更加随机，更新方向的“方差”更大，模型容易不断的震荡，不容易收敛；好处是容易跳出局部最优解。</p>
+<p>研究表明（如下图），大的batch_size 收敛到 Sharp_Minumum，而小的batch_size 收敛到 Flat_Minimum。后者具有更好的泛化能力。</p>
+<img src="https://gitee.com/jak-ma/graph-s/raw/master/imgs/20250725214916343.png" alt="屏幕截图 2025-07-23 181953" style="zoom:50%;" />
+
+<p>（引用论文中的图片，仅供学习使用）</p>
+<p>一个快一个慢，造成这个现象的原因是小的 batch_size 带来的噪声有助于模型逃离 Sharp_Minimum，恰恰是这些噪声增加了泛化性。</p>
+<p>关于训练速度的问题：</p>
+<p>硬件支持的范围内，较大的 batch_size 会提高GPU并行计算的效率，而较小的batch_size 并行计算的效率降低，固定调度开销占比较大。</p>
+<blockquote>
+<ol start="5">
+<li>什么叫线性（模型）什么叫非线性？</li>
+</ol>
+</blockquote>
+<p>线性是指变量之间的关系能够用一次方程来表示，在坐标系中表示为一条直线。而非线性是相对于线性而言的。</p>
+<p>线性模型中不含有激活函数，可能会有多层，但是最终都可以将输出转化成输入的一系列线性组合方程的形式。而非线性模型则不能做到这样，需要更加复杂的一些数学表示而不仅仅是一个一次线性组合方程就能表示的。</p>
+<p>​			有时，最聪明的坚持，是果断地从头再来。</p>
+<p>​		Sometimes the best way forward is to start over.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Jak-Ma</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/07/25/ML-v1-0/">http://example.com/2025/07/25/ML-v1-0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Jak-Ma</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/images/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/07/22/hello-world/" title="Hello World"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Hello World</div></div><div class="info-2"><div class="info-item-1">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new &quot;My New Post&quot;  More info: Writing Run server1$ hexo server  More info: Server Generate static files1$ hexo generate  More info: Generating Deploy to remote sites1$ hexo deploy  More info: Deployment </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Jak-Ma</div><div class="author-info-description">永远需要坚持自我</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/jak-ma"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/jak-ma" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/3562412848@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Welcome! This is my Blog 后续会继续更新机器学习、人工智能相关知识 敬请期待...</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/25/ML-v1-0/" title="机器学习问题记录（v1.0）">机器学习问题记录（v1.0）</a><time datetime="2025-07-25T13:39:02.000Z" title="发表于 2025-07-25 21:39:02">2025-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/22/hello-world/" title="Hello World">Hello World</a><time datetime="2025-07-22T14:58:22.502Z" title="发表于 2025-07-22 22:58:22">2025-07-22</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By Jak-Ma</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
